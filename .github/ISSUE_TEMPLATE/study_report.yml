@@ -1,0 +1,59 @@
+name: "Flutter Study Report"
+description: "플러터 심화 스터디 진행 상황 기록"
+title: "[DAY00] "
+labels: ["study", "flutter-advanced"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📚 오늘 배운 내용 기록!
+        
+
+  - type: input
+    id: study_topic
+    attributes:
+      label: "📖 학습 주제"
+      placeholder: "예: Riverpod를 활용한 상태 관리 심화"
+    validations:
+      required: true
+
+  - type: textarea
+    id: key_concepts
+    attributes:
+      label: "✅ 핵심 개념 정리"
+      description: "오늘 깊게 공부한 주요 개념들 요약"
+      placeholder: "학습한 내용을 불렛 포인트로 작성"
+    validations:
+      required: true
+
+  - type: textarea
+    id: troubleshooting
+    attributes:
+      label: "🛠️ 트러블슈팅 & 고민"
+      description: "직면했던 문제나 기술적인 고민, 해결 과정을 작성"
+      placeholder: "발생한 에러나 성능 최적화 고민 등"
+
+  - type: textarea
+    id: code_snippet
+    attributes:
+      label: "💻 기억할 코드"
+      description: "중요하다고 생각하는 코드 스니펫 공유"
+      render: dart
+
+  - type: checkboxes
+    id: tasks
+    attributes:
+      label: "🏁 완료 여부"
+      options:
+        - label: "코드 실습 완료"
+          required: false
+        - label: "복습 완료"
+          required: false
+        - label: "Notion 정리 완료"
+          required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "🔗 참고 자료"
+      placeholder: "공부하며 참고한 링크를 남겨주세요."
