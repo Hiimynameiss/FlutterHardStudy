@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -7,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,78 +15,50 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HttpSampleScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class HttpSampleScreen extends StatefulWidget {
+  const HttpSampleScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HttpSampleScreen> createState() => _HttpSampleScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  Future<void> _incrementCounter() async {
-    await Future.delayed(const Duration(seconds:4));
-    setState(() {
-      _counter++;
-    });
-  }
-
-  /*
-  void _incrementCounter() {
-    Future.delayed(const Duration(seconds: 4), () {
-      setState(() {
-        _counter++;
-      });
-    });
-  }
-   */
+class _HttpSampleScreenState extends State<HttpSampleScreen> {
+  String body = 'Loading';
 
   Future<String> getData() async {
-    await Future.delayed(const Duration(seconds: 4));
-    return 'You have pushed the button this many times:';
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/posts/1');
+    final response = await http.get(
+      url,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'application/json',
+      },
+    );
+    // print(response.body);
+    setState(() {
+      body = response.body;
+    });
+    return response.body;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('Http Sample Screen'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FutureBuilder<String> (
-              future: getData(),
-              builder: (context, asyncSnapshot) {
-                if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                return Text(
-                  asyncSnapshot.data!,
-                );
-              }),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+        child: Text(body),
+        // 왜 변수가 들어 와야 한다는 거지?
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        getData();
+      }),
     );
   }
 }
