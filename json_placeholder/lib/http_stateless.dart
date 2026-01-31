@@ -20,15 +20,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HttpSampleScreen extends StatefulWidget {
+class HttpSampleScreen extends StatelessWidget {
   const HttpSampleScreen({super.key});
-
-  @override
-  State<HttpSampleScreen> createState() => _HttpSampleScreenState();
-}
-
-class _HttpSampleScreenState extends State<HttpSampleScreen> {
-  String body = 'Loading';
 
   Future<String> getData() async {
     final url = Uri.parse('https://jsonplaceholder.typicode.com/posts/1');
@@ -39,17 +32,8 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
         'Accept': 'application/json',
       },
     );
+    print(response.body);
     return response.body;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData().then((data) {
-      setState(() {
-        body = data;
-      });
-    });
   }
 
   @override
@@ -58,9 +42,7 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
       appBar: AppBar(
         title: const Text('Http Sample Screen'),
       ),
-      body: Center(
-        child: Text(body),
-      ),
+      body: const Placeholder(),
       floatingActionButton: FloatingActionButton(onPressed: () {
         getData();
       }),

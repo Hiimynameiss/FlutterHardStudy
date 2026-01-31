@@ -39,17 +39,16 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
         'Accept': 'application/json',
       },
     );
+    setState(() {
+      body = response.body;
+    });
     return response.body;
   }
 
   @override
   void initState() {
     super.initState();
-    getData().then((data) {
-      setState(() {
-        body = data;
-      });
-    });
+    getData();
   }
 
   @override
