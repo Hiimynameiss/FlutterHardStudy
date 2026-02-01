@@ -39,17 +39,11 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
         'Accept': 'application/json',
       },
     );
-    return response.body;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData().then((data) {
-      setState(() {
-        body = data;
-      });
+    // print(response.body);
+    setState(() {
+      body = response.body;
     });
+    return response.body;
   }
 
   @override
@@ -60,6 +54,7 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
       ),
       body: Center(
         child: Text(body),
+        // 왜 변수가 들어 와야 한다는 거지?
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         getData();
