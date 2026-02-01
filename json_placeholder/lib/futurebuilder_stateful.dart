@@ -50,13 +50,13 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
       ),
       body: Center(
         child: FutureBuilder(
-          future: getData(),
-          builder: (context, asyncSnapshot) {
-            if (asyncSnapshot.hasData) {
-              body = asyncSnapshot.data!;
+            future: getData(),
+            builder: (context, asyncSnapshot) {
+              if (asyncSnapshot.hasData) {
+                body = asyncSnapshot.data!;
+              }
+              return Text(body);
             }
-            return Text(body);
-          }
         ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
