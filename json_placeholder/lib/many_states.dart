@@ -52,17 +52,19 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
         title: const Text('Http Sample Screen'),
       ),
       body: Center(
+        // build method?
         child: FutureBuilder(
-          future: getData(),
-          builder: (context, asyncSnapshot) {
-            if (asyncSnapshot.hasData) {
-              String jsonString = asyncSnapshot.data!;
-              final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
-              title = jsonMap['title'];
-              body = jsonMap['body'];
+            future: getData(),
+            builder: (context, asyncSnapshot) {
+              if (asyncSnapshot.hasData) {
+                String jsonString = asyncSnapshot.data!;
+                final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+                // Map jsonMap = jsonDecode(jsonString);
+                title = jsonMap['title'];
+                body = jsonMap['body'];
+              }
+              return Text('$title : $body');
             }
-            return Text('$title : $body');
-          }
         ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
