@@ -47,8 +47,8 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
         title: const Text('Http Sample Screen'),
       ),
       body: Center(
-        child: Text('${model.title} : ${model.body}')
-        ),
+          child: Text('${model.title} : ${model.body}')
+      ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         model.getUIData();
       }),
