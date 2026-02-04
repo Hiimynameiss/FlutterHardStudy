@@ -45,13 +45,13 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
         title: const Text('Http Sample Screen'),
       ),
       body: Center(
-        child: ListenableBuilder(
-            listenable: model,
-            builder: (BuildContext context, Widget? child) {
-              return Text('${model.title} : ${model.body}');
-            }
+          child: ListenableBuilder(
+              listenable: model,
+              builder: (BuildContext context, Widget? child) {
+                return Text('${model.title} : ${model.body}');
+              }
           )
-        ),
+      ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         model.fetchData();
       }),
