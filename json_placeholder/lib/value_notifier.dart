@@ -45,13 +45,13 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
         title: const Text('Http Sample Screen'),
       ),
       body: Center(
-        child: ListenableBuilder(
-            listenable: model,
-            builder: (BuildContext context, Widget? child) {
-              return Text('${model.value.title} : ${model.value.body}');
-            }
+          child: ListenableBuilder(
+              listenable: model,
+              builder: (BuildContext context, Widget? child) {
+                return Text('${model.value.title} : ${model.value.body}');
+              }
           )
-        ),
+      ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         model.fetchData();
       }),
@@ -61,6 +61,14 @@ class _HttpSampleScreenState extends State<HttpSampleScreen> {
 
 // Model (State, Logic)
 class HttpSampleModel extends ValueNotifier<HttpSampleState> {
+  // State (Value)
+  // HttpSampleState _state = HttpSampleState();
+  // HttpSampleState get state => _state;
+  //
+  // HttpSampleModel() {
+  //   fetchData();
+  // }
+
   HttpSampleModel() : super(HttpSampleState()) {
     fetchData();
   }
@@ -82,15 +90,30 @@ class HttpSampleModel extends ValueNotifier<HttpSampleState> {
   void fetchData() async {
     final jsonString = await _getData();
     final jsonMap = jsonDecode(jsonString) as Map;
-    value = value.copyWith(
+
+    // 상태 변경
+    // body = jsonMap['body'];
+    // title = jsonMap['title'];
+    // _state = state.copyWith(
+    value = value.copyWith( // value라는 property에 setter, getter 모두 포함됨
       title: jsonMap['title'],
       body: jsonMap['body'],
     );
+
+    // 외부에 알려 주자
+    // notifyListeners();
   }
 }
 
 // State
 class HttpSampleState {
+  // String _title = '';
+  // String _body = 'Loading';
+  //
+  // String get title => _title;
+  // String get body => _body;
+
+  // 수정 못하게 final로 지정
   final String title;
   final String body;
 
@@ -99,10 +122,11 @@ class HttpSampleState {
     this.body = 'Loading',
   });
 
+  // 수정 도와주는 helper 함수
   HttpSampleState copyWith({
     String? title,
     String? body,
-}) {
+  }) {
     return HttpSampleState(
       title: title ?? this.title,
       body: body ?? this.body,
